@@ -12,11 +12,14 @@ import SnapKit
 class ViewController: UIViewController {
 
     let tableView = UITableView()
-    
+    let viewModel = ViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initUI()
+        self.viewModel.getRequest(team: "rangers", page: 0) { (resultResponseModelArray, error) in
+            print(resultResponseModelArray)
+        }
     }
 
     func initUI() {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,10 @@
 		1A6E267A230FDAFA00E16CF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A6E2678230FDAFA00E16CF4 /* Main.storyboard */; };
 		1A6E267C230FDAFB00E16CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A6E267B230FDAFB00E16CF4 /* Assets.xcassets */; };
 		1A6E267F230FDAFB00E16CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A6E267D230FDAFB00E16CF4 /* LaunchScreen.storyboard */; };
+		1A6E2687230FE67B00E16CF4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E2686230FE67B00E16CF4 /* ApiManager.swift */; };
+		1A6E268B230FEB5B00E16CF4 /* RootResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E268A230FEB5B00E16CF4 /* RootResponseModel.swift */; };
+		1A6E268D230FEF9200E16CF4 /* ResultResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E268C230FEF9200E16CF4 /* ResultResponseModel.swift */; };
+		1A6E268F230FF0D200E16CF4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E268E230FF0D200E16CF4 /* ViewModel.swift */; };
 		898353D9135BE5309AA01487 /* Pods_RedSoDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBC2C26687A1B437B55DFED /* Pods_RedSoDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +27,10 @@
 		1A6E267B230FDAFB00E16CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A6E267E230FDAFB00E16CF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A6E2680230FDAFB00E16CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A6E2686230FE67B00E16CF4 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		1A6E268A230FEB5B00E16CF4 /* RootResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootResponseModel.swift; sourceTree = "<group>"; };
+		1A6E268C230FEF9200E16CF4 /* ResultResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultResponseModel.swift; sourceTree = "<group>"; };
+		1A6E268E230FF0D200E16CF4 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		9A16F30E24EF1CCC038CF096 /* Pods-RedSoDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedSoDemo.debug.xcconfig"; path = "Target Support Files/Pods-RedSoDemo/Pods-RedSoDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		9B7FFB9AAFC7A1B05085255F /* Pods-RedSoDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedSoDemo.release.xcconfig"; path = "Target Support Files/Pods-RedSoDemo/Pods-RedSoDemo.release.xcconfig"; sourceTree = "<group>"; };
 		CFBC2C26687A1B437B55DFED /* Pods_RedSoDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RedSoDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +71,10 @@
 			children = (
 				1A6E2674230FDAFA00E16CF4 /* AppDelegate.swift */,
 				1A6E2676230FDAFA00E16CF4 /* ViewController.swift */,
+				1A6E268E230FF0D200E16CF4 /* ViewModel.swift */,
+				1A6E2686230FE67B00E16CF4 /* ApiManager.swift */,
+				1A6E268A230FEB5B00E16CF4 /* RootResponseModel.swift */,
+				1A6E268C230FEF9200E16CF4 /* ResultResponseModel.swift */,
 				1A6E2678230FDAFA00E16CF4 /* Main.storyboard */,
 				1A6E267B230FDAFB00E16CF4 /* Assets.xcassets */,
 				1A6E267D230FDAFB00E16CF4 /* LaunchScreen.storyboard */,
@@ -85,7 +97,6 @@
 				9A16F30E24EF1CCC038CF096 /* Pods-RedSoDemo.debug.xcconfig */,
 				9B7FFB9AAFC7A1B05085255F /* Pods-RedSoDemo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -205,6 +216,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A6E2677230FDAFA00E16CF4 /* ViewController.swift in Sources */,
+				1A6E2687230FE67B00E16CF4 /* ApiManager.swift in Sources */,
+				1A6E268D230FEF9200E16CF4 /* ResultResponseModel.swift in Sources */,
+				1A6E268B230FEB5B00E16CF4 /* RootResponseModel.swift in Sources */,
+				1A6E268F230FF0D200E16CF4 /* ViewModel.swift in Sources */,
 				1A6E2675230FDAFA00E16CF4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
