@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor.white
         self.window?.rootViewController = navigationViewController;
         self.window?.makeKeyAndVisible()
+        UINavigationBar.appearance().barTintColor = UIColor.black
+        
         return true
     }
 

@@ -14,6 +14,7 @@ class ViewModel {
     let domain = "https://us-central1-redso-challenge.cloudfunctions.net"
     let endPoint = "/catalog"
     
+    @discardableResult
     func getRequest(team: String, page: Int, completionHandler: @escaping (RootResponseModel<ResultResponseModel>?, NSError?) -> ()) -> DataRequest {
         
         let url = domain + endPoint
@@ -26,4 +27,13 @@ class ViewModel {
         
         return request
     }
+    
+    func loadNextPage(nextPageUrl: String, completionHandler: @escaping (RootResponseModel<ResultResponseModel>?, NSError?) -> ()) -> DataRequest {
+        
+        let request = ApiManager.sharedInstance.getRequest(url: nextPageUrl, parameters: Parameters(),  completionHandler: completionHandler)
+        
+        return request
+    }
+    
+    
 }

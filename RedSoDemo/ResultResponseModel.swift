@@ -17,6 +17,7 @@ class ResultResponseModel: NSObject, Mappable {
     var position: String?
     var expertise: Array<String>?
     var avatar: String?
+    var url: String?
     
     required init?(map: Map) {
         
@@ -29,6 +30,7 @@ class ResultResponseModel: NSObject, Mappable {
         position <- map["position"]
         expertise <- map["expertise"]
         avatar <- map["avatar"]
+        url <- map["url"]
     }
     
     
