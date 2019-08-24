@@ -24,7 +24,6 @@ class BannerTableViewCell: UITableViewCell {
             make.left.equalTo(self.contentView)
             make.right.equalTo(self.contentView)
             make.bottom.equalTo(self.contentView)
-            make.height.equalTo(200)
         }
     }
     

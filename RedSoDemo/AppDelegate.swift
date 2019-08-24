@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = navigationViewController;
         self.window?.makeKeyAndVisible()
         UINavigationBar.appearance().barTintColor = UIColor.black
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for:.default)
         
         return true
     }

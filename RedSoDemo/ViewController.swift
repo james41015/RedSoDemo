@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var isLoadingNextPage = false
     var page = 0
     let refreshControl = UIRefreshControl()
+    var team = "rangers"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,28 +27,48 @@ class ViewController: UIViewController {
         self.tableView.register(ResultTableViewCell.self, forCellReuseIdentifier: String(describing: ResultTableViewCell.self))
         self.tableView.register(BannerTableViewCell.self, forCellReuseIdentifier: String(describing: BannerTableViewCell.self))
         
-        self.viewModel.getRequest(team: "rangers", page: self.page) { (resultResponseModel, error) in
+        self.viewModel.getRequest(team: self.team, page: self.page) { (resultResponseModel, error) in
             self.resultsArray.removeAll()
-            if let resultResponse = resultResponseModel {
-                self.tryToLoadNextPage = true
-                for result in resultResponse.results! {
-                    self.resultsArray.append(result)
-                }
-            }
-            self.tableView.reloadData()
+            self.updateResultsArray(resultResponseModel)
         }
     }
 
+    let menuBar: MenuBar = {
+        let menuBar = MenuBar()
+        return menuBar
+    }()
+    
+    private func initMenuBar() {
+        self.view.addSubview(menuBar)
+        self.menuBar.menuClickCallback = { selectedTeam in
+            if !(selectedTeam == self.team) {
+                self.team = selectedTeam
+                self.page = 0
+                self.viewModel.getRequest(team: selectedTeam, page: self.page, completionHandler: { (resultResponseModel, error) in
+                    self.resultsArray.removeAll()
+                    self.updateResultsArray(resultResponseModel)
+                })
+            }
+        }
+        self.menuBar.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+            make.left.equalTo(self.view.snp.left)
+            make.right.equalTo(self.view.snp.right)
+            make.height.equalTo(50)
+        }
+    }
+    
     func initUI() {
+        self.initMenuBar()
         self.tableView.addSubview(refreshControl)
         self.refreshControl.addTarget(self, action: #selector(refreshData), for: UIControl.Event.valueChanged)
         self.tableView.backgroundColor = UIColor.black
         let titleLabel = UILabel()
         let navTitle = NSMutableAttributedString(string: "Red", attributes:[
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24.0),
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 26.0),
             NSAttributedString.Key.foregroundColor: UIColor.white])
         navTitle.append(NSMutableAttributedString(string: "So", attributes:[
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24.0),
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 26.0),
             NSAttributedString.Key.foregroundColor: UIColor.red]))
         titleLabel.attributedText = navTitle
         self.navigationItem.titleView = titleLabel
@@ -58,42 +79,38 @@ class ViewController: UIViewController {
         self.tableView.dataSource = self
         
         self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top)
+            make.top.equalTo(self.menuBar.snp.bottom)
             make.left.equalTo(self.view.snp.left)
             make.right.equalTo(self.view.snp.right)
             make.bottom.equalTo(self.view.snp.bottom)
         }
     }
+    
+    private func updateResultsArray(_ resultResponseModel: RootResponseModel<ResultResponseModel>?) {
+        if let resultResponse = resultResponseModel?.results {
+            self.tryToLoadNextPage = (resultResponse.count == 0) ? false : true
+            for result in resultResponse {
+                self.resultsArray.append(result)
+            }
+        }
+        self.tableView.reloadData()
+    }
 
     private func loadNextPage() {
         self.isLoadingNextPage = true
         self.page += 1
-        self.viewModel.getRequest(team: "rangers", page: self.page) { (resultResponseModel, error) in
+        self.viewModel.getRequest(team: self.team, page: self.page) { (resultResponseModel, error) in
             self.isLoadingNextPage = false
-            if let resultResponse = resultResponseModel?.results {
-                if resultResponse.count == 0 {
-                    self.tryToLoadNextPage = false
-                }
-                for result in resultResponse {
-                    self.resultsArray.append(result)
-                }
-            }
-            self.tableView.reloadData()
+            self.updateResultsArray(resultResponseModel)
         }
     }
     
     @objc private func refreshData() {
         self.page = 0
-        self.viewModel.getRequest(team: "rangers", page: self.page) { (resultResponseModel, error) in
+        self.viewModel.getRequest(team: self.team, page: self.page) { (resultResponseModel, error) in
             self.refreshControl.endRefreshing()
             self.resultsArray.removeAll()
-            if let resultResponse = resultResponseModel {
-                self.tryToLoadNextPage = true
-                for result in resultResponse.results! {
-                    self.resultsArray.append(result)
-                }
-            }
-            self.tableView.reloadData()
+            self.updateResultsArray(resultResponseModel)
         }
     }
 }
@@ -121,9 +138,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     let imageUrl = URL(string: urlString)
                     cell.resultImageView.kf.setImage(with: imageUrl)
                 }
+                
                 cell.nameLabel.text = model.name
                 cell.positionLabel.text = model.position
                 cell.expertiseLabel.text = model.expertise!.joined(separator: ",")
+                cell.selectionStyle = .none
+                
                 return cell
             case "banner":
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: BannerTableViewCell.self), for: indexPath) as! BannerTableViewCell
@@ -131,6 +151,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     let imageUrl = URL(string: urlString)
                     cell.bannerImageView.kf.setImage(with: imageUrl)
                 }
+                cell.selectionStyle = .none
                 return cell
             default:
                 return UITableViewCell()
