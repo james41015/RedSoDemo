@@ -11,45 +11,47 @@ import SnapKit
 import Kingfisher
 
 class ViewController: UIViewController {
-
-    let tableView = UITableView()
-    let viewModel = ViewModel()
-    var resultsArray = [ResultResponseModel]()
-    var tryToLoadNextPage = false
-    var isLoadingNextPage = false
-    var page = 0
-    let refreshControl = UIRefreshControl()
-    var team = "rangers"
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.black
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initUI()
-        self.tableView.register(ResultTableViewCell.self, forCellReuseIdentifier: String(describing: ResultTableViewCell.self))
-        self.tableView.register(BannerTableViewCell.self, forCellReuseIdentifier: String(describing: BannerTableViewCell.self))
-        
-        self.viewModel.getRequest(team: self.team, page: self.page) { (resultResponseModel, error) in
-            self.resultsArray.removeAll()
-            self.updateResultsArray(resultResponseModel)
-        }
+        self.collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: FeedCollectionViewCell.self))
+        self.collectionView.register(RangersCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: RangersCollectionViewCell.self))
+        self.collectionView.register(ElasticCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ElasticCollectionViewCell.self))
+        self.collectionView.register(DynamoCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: DynamoCollectionViewCell.self))
     }
 
-    let menuBar: MenuBar = {
+    lazy var menuBar: MenuBar = {
         let menuBar = MenuBar()
+        menuBar.viewController = self
         return menuBar
     }()
     
     private func initMenuBar() {
         self.view.addSubview(menuBar)
-        self.menuBar.menuClickCallback = { selectedTeam in
-            if !(selectedTeam == self.team) {
-                self.team = selectedTeam
-                self.page = 0
-                self.viewModel.getRequest(team: selectedTeam, page: self.page, completionHandler: { (resultResponseModel, error) in
-                    self.resultsArray.removeAll()
-                    self.updateResultsArray(resultResponseModel)
-                })
-            }
-        }
+//        self.menuBar.menuClickCallback = { (selectedIndex, selectedTeam) in
+//            self.scrollMenuToIndex(index: selectedIndex)
+//            if !(selectedTeam == self.team) {
+//                self.team = selectedTeam
+//                self.page = 0
+//                self.viewModel.getRequest(team: selectedTeam, page: self.page, completionHandler: { (resultResponseModel, error) in
+//                    self.resultsArray.removeAll()
+//                    self.updateResultsArray(resultResponseModel)
+//                })
+//            }
+//        }
         self.menuBar.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.snp.top)
             make.left.equalTo(self.view.snp.left)
@@ -60,9 +62,7 @@ class ViewController: UIViewController {
     
     func initUI() {
         self.initMenuBar()
-        self.tableView.addSubview(refreshControl)
-        self.refreshControl.addTarget(self, action: #selector(refreshData), for: UIControl.Event.valueChanged)
-        self.tableView.backgroundColor = UIColor.black
+        self.collectionView.backgroundColor = UIColor.black
         let titleLabel = UILabel()
         let navTitle = NSMutableAttributedString(string: "Red", attributes:[
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 26.0),
@@ -74,11 +74,11 @@ class ViewController: UIViewController {
         self.navigationItem.titleView = titleLabel
         self.navigationController?.navigationBar.isTranslucent = false
         
-        self.view.addSubview(self.tableView)
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.view.addSubview(self.collectionView)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         
-        self.tableView.snp.makeConstraints { (make) in
+        self.collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(self.menuBar.snp.bottom)
             make.left.equalTo(self.view.snp.left)
             make.right.equalTo(self.view.snp.right)
@@ -86,92 +86,56 @@ class ViewController: UIViewController {
         }
     }
     
-    private func updateResultsArray(_ resultResponseModel: RootResponseModel<ResultResponseModel>?) {
-        if let resultResponse = resultResponseModel?.results {
-            self.tryToLoadNextPage = (resultResponse.count == 0) ? false : true
-            for result in resultResponse {
-                self.resultsArray.append(result)
-            }
-        }
-        self.tableView.reloadData()
-    }
-
-    private func loadNextPage() {
-        self.isLoadingNextPage = true
-        self.page += 1
-        self.viewModel.getRequest(team: self.team, page: self.page) { (resultResponseModel, error) in
-            self.isLoadingNextPage = false
-            self.updateResultsArray(resultResponseModel)
-        }
+    func scrollMenuToIndex(index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        self.collectionView.scrollToItem(at: indexPath, at: [], animated: true)
     }
     
-    @objc private func refreshData() {
-        self.page = 0
-        self.viewModel.getRequest(team: self.team, page: self.page) { (resultResponseModel, error) in
-            self.refreshControl.endRefreshing()
-            self.resultsArray.removeAll()
-            self.updateResultsArray(resultResponseModel)
-        }
-    }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return resultsArray.count
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.item {
+        case 0:
+            let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RangersCollectionViewCell.self), for: indexPath) as! RangersCollectionViewCell
+            cell.team = self.menuBar.titleArray[indexPath.row].lowercased()
+            return cell
+        case 1:
+            let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ElasticCollectionViewCell.self), for: indexPath) as! ElasticCollectionViewCell
+            cell.team = self.menuBar.titleArray[indexPath.row].lowercased()
+            return cell
+        case 2:
+            let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DynamoCollectionViewCell.self), for: indexPath) as! DynamoCollectionViewCell
+            cell.team = self.menuBar.titleArray[indexPath.row].lowercased()
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.menuBar.horizontalBarView.snp.updateConstraints { (make) in
+            make.left.equalTo(scrollView.contentOffset.x / 3)
+        }
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = targetContentOffset.pointee.x / self.view.frame.width
+        let indexPath = IndexPath(item: Int(index), section: 0)
+        self.menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         
-        let model = self.resultsArray[indexPath.row]
-        if let type = model.type {
-            let rowsToLoadFromBottom = 2;
-            let rowsLoaded = resultsArray.count
-            if tryToLoadNextPage == true {
-                if (!isLoadingNextPage && (indexPath.row >= (rowsLoaded - rowsToLoadFromBottom))) {
-                    self.loadNextPage()
-                }
-            }
-            switch type {
-            case "employee":
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ResultTableViewCell.self), for: indexPath) as! ResultTableViewCell
-                if let urlString = model.avatar {
-                    let imageUrl = URL(string: urlString)
-                    cell.resultImageView.kf.setImage(with: imageUrl)
-                }
-                
-                cell.nameLabel.text = model.name
-                cell.positionLabel.text = model.position
-                cell.expertiseLabel.text = model.expertise!.joined(separator: ",")
-                cell.selectionStyle = .none
-                
-                return cell
-            case "banner":
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: BannerTableViewCell.self), for: indexPath) as! BannerTableViewCell
-                if let urlString = model.url {
-                    let imageUrl = URL(string: urlString)
-                    cell.bannerImageView.kf.setImage(with: imageUrl)
-                }
-                cell.selectionStyle = .none
-                return cell
-            default:
-                return UITableViewCell()
-            }
-        }
-        return UITableViewCell()
+        
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = self.resultsArray[indexPath.row]
-        if let type = model.type {
-            switch type {
-            case "employee":
-                return 150
-            case "banner":
-                return 200
-            default:
-                return 0
-            }
-        }
-        return 0
+
+}
+
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: self.collectionView.frame.height)
     }
 }
+

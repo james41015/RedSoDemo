@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 class MenuBar: UIView {
+    var viewController: ViewController?
     var horizontalBarView = UIView()
     let titleArray = ["Rangers", "Elastic" , "Dynamo"]
-    var menuClickCallback: ((_ selectedTeam: String) -> ())?
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -75,14 +75,8 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let x = CGFloat(indexPath.item) * frame.width / 3
-        self.horizontalBarView.snp.updateConstraints { (make) in
-            make.left.equalTo(x)
-        }
-        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.layoutIfNeeded()
-        }, completion: nil)
-        self.menuClickCallback?(self.titleArray[indexPath.row].lowercased())
+        viewController?.scrollMenuToIndex(index: indexPath.item)
+
     }
 }
 

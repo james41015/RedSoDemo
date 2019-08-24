@@ -2,4 +2,54 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RedSoDemo/FeedCollectionViewCell.swift"
+            timestampString = "588365155.542549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "init(frame:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RedSoDemo.FeedCollectionViewCell.init(frame: __C.CGRect) -&gt; RedSoDemo.FeedCollectionViewCell"
+                  moduleName = "RedSoDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/James/RedSoDemo/RedSoDemo/FeedCollectionViewCell.swift"
+                  timestampString = "588363153.999843"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "2364">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;RedSoDemo.RootResponseModel&lt;RedSoDemo.ResultResponseModel&gt;&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in RedSoDemo.FeedCollectionViewCell.init(frame: __C.CGRect) -&gt; RedSoDemo.FeedCollectionViewCell"
+                  moduleName = "RedSoDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/James/RedSoDemo/RedSoDemo/FeedCollectionViewCell.swift"
+                  timestampString = "588363154.002898"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "49">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

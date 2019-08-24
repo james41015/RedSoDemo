@@ -20,6 +20,10 @@
 		1A6E2693230FF6AF00E16CF4 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E2692230FF6AF00E16CF4 /* BannerTableViewCell.swift */; };
 		1A6E2695231061C300E16CF4 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E2694231061C300E16CF4 /* MenuBar.swift */; };
 		1A6E26972311117900E16CF4 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E26962311117900E16CF4 /* MenuCollectionViewCell.swift */; };
+		1A6E269923118FE000E16CF4 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E269823118FE000E16CF4 /* FeedCollectionViewCell.swift */; };
+		1A6E269B2311ADBE00E16CF4 /* RangersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E269A2311ADBE00E16CF4 /* RangersCollectionViewCell.swift */; };
+		1A6E269D2311AE5800E16CF4 /* ElasticCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E269C2311AE5800E16CF4 /* ElasticCollectionViewCell.swift */; };
+		1A6E269F2311B39100E16CF4 /* DynamoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6E269E2311B39100E16CF4 /* DynamoCollectionViewCell.swift */; };
 		898353D9135BE5309AA01487 /* Pods_RedSoDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBC2C26687A1B437B55DFED /* Pods_RedSoDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +43,10 @@
 		1A6E2692230FF6AF00E16CF4 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
 		1A6E2694231061C300E16CF4 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		1A6E26962311117900E16CF4 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A6E269823118FE000E16CF4 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A6E269A2311ADBE00E16CF4 /* RangersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangersCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A6E269C2311AE5800E16CF4 /* ElasticCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElasticCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A6E269E2311B39100E16CF4 /* DynamoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9A16F30E24EF1CCC038CF096 /* Pods-RedSoDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedSoDemo.debug.xcconfig"; path = "Target Support Files/Pods-RedSoDemo/Pods-RedSoDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		9B7FFB9AAFC7A1B05085255F /* Pods-RedSoDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedSoDemo.release.xcconfig"; path = "Target Support Files/Pods-RedSoDemo/Pods-RedSoDemo.release.xcconfig"; sourceTree = "<group>"; };
 		CFBC2C26687A1B437B55DFED /* Pods_RedSoDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RedSoDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +87,10 @@
 			children = (
 				1A6E2674230FDAFA00E16CF4 /* AppDelegate.swift */,
 				1A6E2676230FDAFA00E16CF4 /* ViewController.swift */,
+				1A6E269823118FE000E16CF4 /* FeedCollectionViewCell.swift */,
+				1A6E269A2311ADBE00E16CF4 /* RangersCollectionViewCell.swift */,
+				1A6E269C2311AE5800E16CF4 /* ElasticCollectionViewCell.swift */,
+				1A6E269E2311B39100E16CF4 /* DynamoCollectionViewCell.swift */,
 				1A6E2694231061C300E16CF4 /* MenuBar.swift */,
 				1A6E26962311117900E16CF4 /* MenuCollectionViewCell.swift */,
 				1A6E2690230FF68B00E16CF4 /* ResultTableViewCell.swift */,
@@ -229,10 +241,14 @@
 			files = (
 				1A6E2677230FDAFA00E16CF4 /* ViewController.swift in Sources */,
 				1A6E2687230FE67B00E16CF4 /* ApiManager.swift in Sources */,
+				1A6E269D2311AE5800E16CF4 /* ElasticCollectionViewCell.swift in Sources */,
+				1A6E269923118FE000E16CF4 /* FeedCollectionViewCell.swift in Sources */,
 				1A6E2691230FF68B00E16CF4 /* ResultTableViewCell.swift in Sources */,
 				1A6E268D230FEF9200E16CF4 /* ResultResponseModel.swift in Sources */,
+				1A6E269F2311B39100E16CF4 /* DynamoCollectionViewCell.swift in Sources */,
 				1A6E268B230FEB5B00E16CF4 /* RootResponseModel.swift in Sources */,
 				1A6E2695231061C300E16CF4 /* MenuBar.swift in Sources */,
+				1A6E269B2311ADBE00E16CF4 /* RangersCollectionViewCell.swift in Sources */,
 				1A6E2693230FF6AF00E16CF4 /* BannerTableViewCell.swift in Sources */,
 				1A6E268F230FF0D200E16CF4 /* ViewModel.swift in Sources */,
 				1A6E2675230FDAFA00E16CF4 /* AppDelegate.swift in Sources */,
